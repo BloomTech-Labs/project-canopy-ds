@@ -10,6 +10,7 @@ autopep8 = "*"
 [packages]
 fastapi = {extras = ["all"],version = "*"}
 sqlalchemy = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
