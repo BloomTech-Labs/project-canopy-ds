@@ -36,7 +36,7 @@ def get_hotspot_habitats(db: Session):
     ).all()
     # Debug SQLAlchemy query:
     # str(query.statement.compile(dialect=postgresql.dialect()))
-    return [tuple(row) for row in query]
+    return [{"habitat": row[0], "count": row[1]} for row in query]
 
 
 def get_hotspot_habitat_by_country(db: Session, country: str):
@@ -79,4 +79,4 @@ def get_hotspot_habitat_by_country(db: Session, country: str):
         func.count('*').desc()
     ).all()
 
-    return query
+    return [{"habitat": row[0], "count": row[1]} for row in query]

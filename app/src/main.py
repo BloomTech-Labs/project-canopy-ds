@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import Dict, List
 
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
@@ -18,12 +18,12 @@ def get_db():  # Dependency
         db.close()
 
 
-@app.get("/hotspot-habitats/", response_model=List[Tuple[str, int]])
+@app.get("/hotspot-habitats/", response_model=List[Dict])
 def read_hotspot_habitats(db: Session = Depends(get_db)):
     return crud.get_hotspot_habitats(db)
 
 
-@app.get("/hotspot-habitats/{country}", response_model=List[Tuple[str, int]])
+@app.get("/hotspot-habitats/{country}", response_model=List[Dict])
 def read_hotspot_habitats_by_country(
     country: str, db: Session = Depends(get_db)
 ):
