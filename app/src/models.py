@@ -68,3 +68,27 @@ class Country(Base):
 
     def __repr__(self):
         return f'<Countries that {self.scientificName} can be found in>'
+
+
+class Threat(Base):
+    __tablename__ = "threats"
+
+    index = Column(Numeric, primary_key=True)
+    assessmentId = Column(Numeric(12, 0), nullable=False)
+    internalTaxonId = Column(Numeric(12, 0), nullable=False)
+    scientificName = Column(String, nullable=False)
+    code = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    stressCode = Column(String)
+    stressName = Column(String)
+    ancestry = Column(String)
+    ias = Column(String)
+    internationalTrade = Column(String)
+    scope = Column(String)
+    severity = Column(String)
+    text = Column(String)
+    timing = Column(String)
+    virus = Column(String)
+
+    def __repr__(self):
+        return f'<Threats to {self.scientificName}>'

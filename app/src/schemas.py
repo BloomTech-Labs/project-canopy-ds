@@ -48,15 +48,37 @@ class Habitat(BaseModel):
 
 class Country(BaseModel):
     index: Decimal
-    assessmentId = Decimal
-    internalTaxonId = Decimal
-    scientificName = str
-    code = str
-    name = str
-    presence = str
-    origin = str
-    seasonality = str
-    formerlyBred = str
+    assessmentId: Decimal
+    internalTaxonId: Decimal
+    scientificName: str
+    code: str
+    name: str
+    presence: str
+    origin: str
+    seasonality: str
+    formerlyBred: str
+
+    class Config:
+        orm_mode = True
+
+
+class Threat(BaseModel):
+    index: Decimal
+    assessmentId: Decimal
+    internalTaxonId: Decimal
+    scientificName: str
+    code: str
+    name: str
+    stressCode: str
+    stressName: str
+    ancestry: str
+    ias: str
+    internationalTrade: str
+    scope: str
+    severity: str
+    text: str
+    timing: str
+    virus: str
 
     class Config:
         orm_mode = True

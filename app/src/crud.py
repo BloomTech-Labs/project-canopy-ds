@@ -80,3 +80,39 @@ def get_hotspot_habitat_by_country(db: Session, country: str):
     ).all()
 
     return [{"habitat": row[0], "count": row[1]} for row in query]
+
+
+def get_threats(db: Session):
+    query = db.query(
+        models.Threat.name,
+        func.count('*')
+    ).group_by(
+        models.Threat.name
+    ).order_by(
+        func.count('*').desc()
+    ).all()
+
+    return [{"name": row[0], "count": row[1]} for row in query]
+
+
+def get_threats_by_habitat(db: Session, habitat_code: str):
+    species_in_habitat = db.query(
+        models.Habitat.scientificName
+    ).filter(
+        models.Habitat.code == habitat_code
+    ).subquery()
+
+    query = db.query(
+        models.Threat.name,
+        func.count('*')
+    ).filter(
+        models.Threat.scientificName.in_(
+            species_in_habitat
+        )
+    ).group_by(
+        models.Threat.name
+    ).order_by(
+        func.count('*').desc()
+    ).all()
+
+    return [{"name": row[0], "count": row[1]} for row in query]

@@ -39,6 +39,18 @@ def read_hotspot_habitats_by_country(
     return crud.get_hotspot_habitat_by_country(db, country=country)
 
 
+@app.get("/threats", response_model=List[Dict])
+def read_threats(db: Session = Depends(get_db)):
+    return crud.get_threats(db)
+
+
+@app.get("/threats/{habitat_code}", response_model=List[Dict])
+def read_threats_by_habitat_code(
+    habitat_code: str, db: Session = Depends(get_db)
+):
+    return crud.get_threats_by_habitat(db, habitat_code=habitat_code)
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
