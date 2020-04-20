@@ -39,7 +39,7 @@ def read_hotspot_habitats_by_country(
     return crud.get_hotspot_habitat_by_country(db, country=country)
 
 
-@app.get("/threats", response_model=List[Dict])
+@app.get("/threats/", response_model=List[Dict])
 def read_threats(db: Session = Depends(get_db)):
     return crud.get_threats(db)
 
