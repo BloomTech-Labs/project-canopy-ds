@@ -51,6 +51,13 @@ def read_threats_by_habitat_code(
     return crud.get_threats_by_habitat(db, habitat_code=habitat_code)
 
 
+@app.get("/threats/country/{country}", response_model=List[Dict])
+def read_threats_by_country(
+    country: str, db: Session = Depends(get_db)
+):
+    return crud.get_threats_by_country(db, country=country)
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}

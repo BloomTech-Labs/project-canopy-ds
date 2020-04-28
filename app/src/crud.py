@@ -116,3 +116,26 @@ def get_threats_by_habitat(db: Session, habitat_code: str):
     ).all()
 
     return [{"name": row[0], "count": row[1]} for row in query]
+
+
+def get_threats_by_country(db: Session, country: str):
+    species_in_country = db.query(
+        models.Country.scientificName
+    ).filter(
+        models.Country.name == country
+    ).subquery()
+
+    query = db.query(
+        models.Threat.name,
+        func.count('*')
+    ).filter(
+        models.Threat.scientificName.in_(
+            species_in_country
+        )
+    ).group_by(
+        models.Threat.name
+    ).order_by(
+        func.count('*').desc()
+    ).all()
+
+    return [{"name": row[0], "count": row[1]} for row in query]
